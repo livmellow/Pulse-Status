@@ -6,6 +6,20 @@ create table if not exists accounts (
   plan text not null default 'starter',
   created_at timestamptz not null default now()
 );
+create table if not exists auth_identities (
+  id uuid primary key, account_id uuid not null references accounts(id) on delete cascade,
+  provider text not null, provider_account_id text not null, created_at timestamptz not null default now(),
+  unique(provider, provider_account_id)
+);
+create table if not exists sessions (
+  id uuid primary key, account_id uuid not null references accounts(id) on delete cascade,
+  expires_at timestamptz not null, created_at timestamptz not null default now()
+);
+create table if not exists subscriptions (
+  id uuid primary key, account_id uuid not null unique references accounts(id) on delete cascade,
+  stripe_customer_id text unique, stripe_subscription_id text unique, status text not null default 'free',
+  current_period_end timestamptz, updated_at timestamptz not null default now()
+);
 
 create table if not exists status_pages (
   id uuid primary key,
