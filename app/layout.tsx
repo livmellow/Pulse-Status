@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Pulse Status — Always know what is up",
-  description: "A self-hosted-ready service status page template.",
+  description: "Beautiful, branded uptime monitoring and public status pages.",
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",
